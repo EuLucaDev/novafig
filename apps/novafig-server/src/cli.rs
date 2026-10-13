@@ -20,7 +20,7 @@ use crate::store::{self, KEY, Store};
 pub const SERVER_JSON: &str = "server.json";
 
 pub const USAGE: &str = "\
-novafig-server: NovaFig's collaboration server (files, share links, live sessions)
+novafig-server: Nova Fig's collaboration server (files, share links, live sessions)
 
 Usage:
   novafig-server [serve] [--listen ADDR] [--data DIR] [--public-url URL] [--config FILE]
