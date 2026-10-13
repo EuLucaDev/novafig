@@ -1,0 +1,17 @@
+[package]
+name = "novafig-doc"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaFig document model: pages, the node tree, properties, components, styles, variables, prototype data"
+
+[lints]
+workspace = true
+
+[dependencies]
+novafig-geom = { workspace = true }
+novafig-color = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+imbl = { workspace = true }

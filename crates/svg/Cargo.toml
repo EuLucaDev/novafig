@@ -1,0 +1,19 @@
+[package]
+name = "novafig-svg"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaFig SVG export (shapes, gradients, images, strokes, effects as filters, text as outlines) and import (via usvg)"
+
+[lints]
+workspace = true
+
+[dependencies]
+novafig-geom = { workspace = true }
+novafig-color = { workspace = true }
+novafig-doc = { workspace = true }
+novafig-render = { workspace = true }
+novafig-text = { workspace = true }
+novafig-pathops = { workspace = true }
+usvg = { workspace = true }
+base64 = { workspace = true }

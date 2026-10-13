@@ -1,0 +1,18 @@
+[package]
+name = "novafig-text"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaFig text: font database (embedded novafoods-fonts + system fonts), shaping, line layout, glyph outlines"
+
+[lints]
+workspace = true
+
+[dependencies]
+novafig-geom = { workspace = true }
+novafig-doc = { workspace = true }
+skrifa = { workspace = true }
+harfrust = { workspace = true }
+unicode-bidi = { workspace = true }
+unicode-segmentation = { workspace = true }
+log = { workspace = true }

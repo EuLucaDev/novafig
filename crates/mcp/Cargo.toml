@@ -1,0 +1,23 @@
+[package]
+name = "novafig-mcp"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaFig MCP server: JSON-RPC 2.0 over stdio, driving a headless engine session or a running NovaFig app"
+
+[lints]
+workspace = true
+
+[dependencies]
+novafig-engine = { workspace = true }
+novafig-collab-net = { workspace = true }
+novafig-doc = { workspace = true }
+novafig-geom = { workspace = true }
+novafig-render = { workspace = true }
+serde_json = { workspace = true }
+base64 = { workspace = true }
+log = { workspace = true }
+
+[dev-dependencies]
+proptest = { workspace = true }
+image = { workspace = true }

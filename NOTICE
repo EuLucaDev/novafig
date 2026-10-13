@@ -1,0 +1,24 @@
+Nova Fig
+Copyright (c) 2026 Nova Foods.
+Licensed under the MIT License or the Apache License, Version 2.0, at your option
+(LICENSE-MIT, LICENSE-APACHE).
+
+Nova Fig is a modified version of FigCraft (https://github.com/storytold/figcraft),
+Copyright (c) 2026 ArtCraft Team and the FigCraft contributors, used under the same
+licenses. It is not affiliated with, sponsored by or endorsed by the ArtCraft Team.
+The Nova Foods name, logo and icons in docs/brand/ and assets/app-icon/ are trademarks
+of Nova Foods and are not covered by the licenses above.
+
+Third-party material
+
+This product bundles no third-party fonts, icons or images in the repository: every icon is
+drawn in code and original to Nova Fig. The per-file list (author, source, license) of any bundled
+asset is in ATTRIBUTION.md.
+
+Release builds made with the optional novafoods-fonts build input (NOVAFOODS_FONTS_DIR) embed the fonts
+listed in ATTRIBUTION.md (Inter and others, SIL Open Font License 1.1); each package carries their
+licence texts.
+
+Rust crate dependencies keep their own licenses (MIT, Apache-2.0, BSD, ISC, Zlib, OFL for egui's
+default fonts, CDLA-Permissive-2.0 for the root certificate list webpki-roots compiles in, and
+similar permissive licenses); see each crate's metadata.

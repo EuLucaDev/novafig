@@ -1,0 +1,24 @@
+[package]
+name = "novafig-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+description = "NovaFig command line: info, export, convert, render, scripted commands, MCP server, perf"
+
+[[bin]]
+name = "novafig-cli"
+path = "src/main.rs"
+
+[lints]
+workspace = true
+
+[dependencies]
+novafig-engine = { workspace = true }
+novafig-doc = { workspace = true }
+novafig-render = { workspace = true }
+novafig-text = { workspace = true }
+novafig-svg = { workspace = true }
+novafig-format = { workspace = true }
+novafig-mcp = { workspace = true }
+serde_json = { workspace = true }

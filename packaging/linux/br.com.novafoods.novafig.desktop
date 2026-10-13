@@ -1,0 +1,14 @@
+[Desktop Entry]
+Type=Application
+Name=Nova Fig
+GenericName=Interface Design Tool
+Comment=Design and prototype user interfaces
+Exec=novafig %U
+TryExec=novafig
+Icon=br.com.novafoods.novafig
+Terminal=false
+StartupNotify=true
+StartupWMClass=novafig
+Categories=Graphics;2DGraphics;VectorGraphics;X-Design;
+Keywords=design;interface;ui;ux;prototype;wireframe;mockup;vector;layout;components;
+MimeType=application/x-novafig;image/svg+xml;image/png;image/jpeg;x-scheme-handler/novafig;

@@ -1,0 +1,34 @@
+[package]
+name = "novafig-engine"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "NovaFig engine: sessions, undo history, the command registry every surface (UI, CLI, control channel, MCP) dispatches through, pointer tools, components and the Figma menu catalog"
+
+[lints]
+workspace = true
+
+[dependencies]
+novafig-geom = { workspace = true }
+novafig-color = { workspace = true }
+novafig-doc = { workspace = true }
+novafig-collab = { workspace = true }
+novafig-layout = { workspace = true }
+novafig-text = { workspace = true }
+novafig-pathops = { workspace = true }
+novafig-render = { workspace = true }
+novafig-format = { workspace = true }
+novafig-svg = { workspace = true }
+novafig-pdf = { workspace = true }
+novafig-plugin = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }
+log = { workspace = true }
+base64 = { workspace = true }
+regex = { workspace = true }
+web-time = "1.1.0"
+
+[dev-dependencies]
+wat = { workspace = true }
+image = { workspace = true }
