@@ -6,9 +6,7 @@
 use std::collections::{BTreeMap, BTreeSet};
 
 use novafig_doc::color::PaintKind;
-use novafig_doc::{
-    ALL_SCOPES, CODE_PLATFORMS, Collection, Mode, Node, NodeKind, Variable, VariableType, VariableValue, Variables, normalize_scopes,
-};
+use novafig_doc::{ALL_SCOPES, CODE_PLATFORMS, Collection, Mode, Node, NodeKind, Variable, VariableType, VariableValue, Variables, normalize_scopes};
 use serde_json::{Map, Value, json};
 
 use super::Ctx;

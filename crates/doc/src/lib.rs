@@ -24,11 +24,11 @@ pub mod vector_faces;
 
 pub use colors::*;
 pub use comments::*;
-pub use novafig_color as color;
-pub use novafig_geom as geom;
 pub use handoff::*;
 pub use library::*;
 pub use node::*;
+pub use novafig_color as color;
+pub use novafig_geom as geom;
 pub use props::*;
 pub use styles::*;
 pub use text::*;

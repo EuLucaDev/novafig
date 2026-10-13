@@ -24,8 +24,7 @@ fn plugin(root: &std::path::Path) -> std::path::PathBuf {
     std::fs::create_dir_all(&dir).unwrap();
     let manifest = json!({"id": ID, "name": "Tiny tool", "version": "1.0.0", "main": "tiny.wasm", "permissions": {"access": "read"}});
     std::fs::write(dir.join("novafig-plugin.json"), manifest.to_string()).unwrap();
-    let wasm =
-        wat::parse_str(r#"(module (memory (export "memory") 1) (func (export "novafig_run") (param i32) (result i32) i32.const 0))"#).unwrap();
+    let wasm = wat::parse_str(r#"(module (memory (export "memory") 1) (func (export "novafig_run") (param i32) (result i32) i32.const 0))"#).unwrap();
     std::fs::write(dir.join("tiny.wasm"), wasm).unwrap();
     dir
 }

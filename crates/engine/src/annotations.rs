@@ -385,10 +385,8 @@ pub fn specs() -> Vec<CommandSpec> {
                 Some(c) => c,
                 None => {
                     let used = |c: &novafig_color::Color| list.iter().any(|x| x.color.to_hex() == c.to_hex());
-                    let fallback = AnnotationCategory::COLORS
-                        .get(list.len() % AnnotationCategory::COLORS.len())
-                        .copied()
-                        .unwrap_or(novafig_color::Color::BLACK);
+                    let fallback =
+                        AnnotationCategory::COLORS.get(list.len() % AnnotationCategory::COLORS.len()).copied().unwrap_or(novafig_color::Color::BLACK);
                     AnnotationCategory::COLORS.iter().find(|c| !used(c)).copied().unwrap_or(fallback)
                 }
             };

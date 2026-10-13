@@ -10,12 +10,12 @@
 //! - Background blur and glass are drawn by the renderer from a render of what lies under the
 //!   node on the page, and placed under its content.
 
+use krilla::geom::Size;
+use krilla::image::Image;
 use novafig_color::BlendMode;
 use novafig_doc::{EffectKind, NodeId, NodeKind};
 use novafig_geom::{Affine, Rect};
 use novafig_render::{Alone, Pixmap, View, backdrop, shadow};
-use krilla::geom::Size;
-use krilla::image::Image;
 
 use crate::print::Ink;
 use krilla::surface::Surface;

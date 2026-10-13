@@ -148,6 +148,14 @@ impl Invite {
     /// (then the invite names only the server, until the server says what the code opens).
     pub fn parse_join(link: &str) -> Result<(Invite, Option<String>), String> {
         let link = clean(link);
+        if link.len() > MAX_LINK * 3 + BROWSER_INVITE.len() {
+            return Err(NOT.into());
+        }
+        let decoded = match link.strip_prefix(BROWSER_INVITE) {
+            Some(encoded) => Some(percent_decode(encoded).ok_or(NOT)?),
+            None => None,
+        };
+        let link = decoded.as_deref().unwrap_or(link);
         if link.len() > MAX_LINK {
             return Err(NOT.into());
         }
@@ -247,4 +255,24 @@ fn percent_decode(s: &str) -> Option<String> {
         }
     }
     String::from_utf8(out).ok()
+}
+
+/// A browser fallback; the capability stays in the fragment, outside HTTP requests and logs.
+const BROWSER_INVITE: &str = "https://workflowind.agcunae.com/apps/join#invite=";
+
+/// Wrap a native invitation for people who have not installed Nova Fig yet.
+/// Other clipboard contents are left unchanged by the caller.
+pub fn browser_link(link: &str) -> Option<String> {
+    if !link.starts_with("novafig://join?") || Invite::parse_join(link).is_err() {
+        return None;
+    }
+    let mut encoded = String::with_capacity(link.len() * 3);
+    for byte in link.bytes() {
+        if byte.is_ascii_alphanumeric() || matches!(byte, b'-' | b'_' | b'.' | b'~') {
+            encoded.push(char::from(byte));
+        } else {
+            encoded.push_str(&format!("%{byte:02X}"));
+        }
+    }
+    Some(format!("{BROWSER_INVITE}{encoded}"))
 }

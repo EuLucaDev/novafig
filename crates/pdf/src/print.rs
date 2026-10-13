@@ -21,13 +21,13 @@
 use std::hash::{Hash, Hasher};
 use std::sync::Arc;
 
-use novafig_color::Color;
-use novafig_doc::PrintSettings;
-use novafig_geom::{BezPath, Rect, Shape};
 use krilla::color::{cmyk, rgb};
 use krilla::image::{BitsPerComponent, CustomImage, Image, ImageColorspace};
 use krilla::paint::{FillRule, LineCap, Stroke};
 use krilla::surface::Surface;
+use novafig_color::Color;
+use novafig_doc::PrintSettings;
+use novafig_geom::{BezPath, Rect, Shape};
 
 use crate::draw::{norm, to_path};
 

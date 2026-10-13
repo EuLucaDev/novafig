@@ -121,11 +121,9 @@ fn links_can_name_a_join_code() {
     // A link with a file and a token is read as before.
     let link = "novafig://join?host=127.0.0.1:47900&file=abc&token=AbCdEfGhIjKlMnOpQrStUv";
     assert_eq!(Invite::parse_join(link).unwrap(), (Invite::parse(link).unwrap(), None));
-    for bad in [
-        "novafig://join?server=wss://share.example/&code=",
-        "novafig://join?server=wss://share.example/&code=K7M",
-        "novafig://join?code=K7M2QX9TD",
-    ] {
+    for bad in
+        ["novafig://join?server=wss://share.example/&code=", "novafig://join?server=wss://share.example/&code=K7M", "novafig://join?code=K7M2QX9TD"]
+    {
         assert!(Invite::parse_join(bad).is_err(), "{bad}");
     }
     // Where a file's link is needed (team libraries), a code isn't one.

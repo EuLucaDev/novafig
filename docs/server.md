@@ -285,7 +285,7 @@ are errors):
 | `max_file_mb` | 64 (16 when open) | Largest file (its snapshot), in MiB; a welcome carries the whole file, and messages are at most 64 MiB |
 | `max_links` | 100 | Most share links per file |
 | `max_connections` | 512 | Most open connections |
-| `max_people` | 256 | Most people in one file at once |
+| `max_people` | 1,000,000 (no practical limit) | Most people in one file at once |
 | `compact_after` | 1000 | Compact a file's log into a new snapshot after this many entries… |
 | `compact_mb` | 16 | …or once its log is this large (MiB) |
 | `max_plugins` | 500 | Most plugin versions the plugin directory keeps (all plugins together); 0 turns the directory off |

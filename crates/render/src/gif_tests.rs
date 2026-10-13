@@ -3,10 +3,10 @@
 
 use std::sync::Arc;
 
-use novafig_color::{ColorProfile, ImageFilters, ImageScaleMode, Paint};
-use novafig_doc::{Document, ImageData, NodeKind};
 use image::codecs::gif::{GifEncoder, Repeat};
 use image::{Delay, Frame, RgbaImage};
+use novafig_color::{ColorProfile, ImageFilters, ImageScaleMode, Paint};
+use novafig_doc::{Document, ImageData, NodeKind};
 
 use crate::images::{self, MAX_FRAMES};
 

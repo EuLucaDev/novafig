@@ -48,10 +48,7 @@ fn server_links_carry_tls_and_a_path() {
     assert_eq!(Invite::parse(&i.url()), Ok(i.clone()));
     // The scheme's port when there's none, and a path without its last slash.
     assert_eq!(Invite::parse(&format!("wss://novafig.example.com/live?file=0123456789abcdef&token={TOKEN}")), Ok(i.clone()));
-    assert_eq!(
-        Invite::parse(&format!("novafig://join?server=wss%3A%2F%2Fnovafig.example.com%2Flive%2F&file=0123456789abcdef&token={TOKEN}")),
-        Ok(i)
-    );
+    assert_eq!(Invite::parse(&format!("novafig://join?server=wss%3A%2F%2Fnovafig.example.com%2Flive%2F&file=0123456789abcdef&token={TOKEN}")), Ok(i));
     // A plain server at / is the same as an app's invite.
     let plain = Invite::parse(&format!("novafig://join?server=ws://10.0.0.5:47900&file=0123456789abcdef&token={TOKEN}")).unwrap();
     assert_eq!(plain, Invite::new("10.0.0.5:47900", "0123456789abcdef", TOKEN));
@@ -122,4 +119,15 @@ proptest! {
         prop_assert_eq!(Invite::parse(&i.link()), Ok(i.clone()));
         prop_assert_eq!(Invite::parse(&i.url()), Ok(i));
     }
+}
+
+#[test]
+fn browser_fallback_preserves_only_the_invited_file() {
+    let native = "novafig://join?server=wss://collab.agcunae.com/&file=PrivateFile&token=AbCdEfGhIjKlMnOpQrStUv";
+    let web = crate::invite::browser_link(native).unwrap();
+    assert!(web.starts_with("https://workflowind.agcunae.com/apps/join#invite="));
+    assert_eq!(Invite::parse(&web).unwrap(), Invite::parse(native).unwrap());
+    assert!(Invite::parse(&web.replace("workflowind.agcunae.com", "untrusted.example")).is_err());
+    assert!(crate::invite::browser_link("plain clipboard text").is_none());
+    assert!(Invite::parse("https://workflowind.agcunae.com/apps/join#invite=%zz").is_err());
 }

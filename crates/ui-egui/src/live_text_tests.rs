@@ -4,8 +4,8 @@
 
 use egui::{Color32, Pos2, Shape};
 use novafig_doc::NodeId;
-use novafig_engine::novafig_collab::EditingText;
 use novafig_engine::live::{Event as LiveEvent, Presence, editing_hint};
+use novafig_engine::novafig_collab::EditingText;
 use serde_json::json;
 
 use crate::canvas::TextOnScreen;

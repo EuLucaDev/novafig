@@ -5,14 +5,14 @@ use std::collections::BTreeSet;
 use std::ops::Range;
 use std::sync::Arc;
 
-use novafig_doc::{Node, NodeKind, StrokeAlign, StrokeProps};
-use novafig_geom::{Affine, BezPath};
-use novafig_text::fontdb::FontBytes;
-use novafig_text::{Face, Glyph, TextLayout};
 use krilla::geom::Point;
 use krilla::paint::{Fill, FillRule};
 use krilla::surface::Surface;
 use krilla::text::{Font, GlyphId, KrillaGlyph};
+use novafig_doc::{Node, NodeKind, StrokeAlign, StrokeProps};
+use novafig_geom::{Affine, BezPath};
+use novafig_text::fontdb::FontBytes;
+use novafig_text::{Face, Glyph, TextLayout};
 
 use novafig_color::{GradientKind, Paint, PaintKind};
 

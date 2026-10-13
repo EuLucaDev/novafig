@@ -157,8 +157,7 @@ mod tests {
         let big = id(&ex(&mut s, "text.create", json!({"text": "Big", "x": 0, "y": 0, "parent": f, "props": {"fontSize": 48}})));
         ex(&mut s, "node.set", json!({"id": f, "props": {"crossAlign": "baseline"}}));
         assert_eq!(node(&s, f).layout.unwrap().cross_align, CrossAlign::Baseline);
-        let base =
-            |s: &Session, t: NodeId| novafig_text::layout_node(&node(s, t)).and_then(|(l, dy)| l.lines.first().map(|line| line.baseline + dy));
+        let base = |s: &Session, t: NodeId| novafig_text::layout_node(&node(s, t)).and_then(|(l, dy)| l.lines.first().map(|line| line.baseline + dy));
         // Only meaningful when the text was measured (fonts available).
         if let (Some(bs), Some(bb)) = (base(&s, small), base(&s, big))
             && (bb - bs).abs() > 1.0

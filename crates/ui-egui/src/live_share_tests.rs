@@ -9,12 +9,12 @@ use std::sync::{Arc, Mutex};
 use std::time::Duration;
 
 use egui::{Event, Key, Shape};
-use novafig_engine::novafig_collab::code::{self, Local};
-use novafig_engine::novafig_collab::message::ClientMsg;
 use novafig_engine::live::{
     Access, DEFAULT_SERVER, Event as LiveEvent, HostOptions, LiveLink, NetReply, NetRequest, Peer, Presence, PublishOptions, Published, Role,
     SessionInfo, Shared as SharedLinks, SharedLink, Status,
 };
+use novafig_engine::novafig_collab::code::{self, Local};
+use novafig_engine::novafig_collab::message::ClientMsg;
 use serde_json::json;
 
 use crate::live_tests::{Harness, has_text, text_center, texts};

@@ -16,8 +16,7 @@ use crate::test_util::{TempDir, config, publish, pump, session};
 const ID: &str = "org.example.tiny";
 
 fn bundle() -> Vec<u8> {
-    let wasm =
-        wat::parse_str(r#"(module (memory (export "memory") 1) (func (export "novafig_run") (param i32) (result i32) i32.const 0))"#).unwrap();
+    let wasm = wat::parse_str(r#"(module (memory (export "memory") 1) (func (export "novafig_run") (param i32) (result i32) i32.const 0))"#).unwrap();
     let manifest = json!({"id": ID, "name": "Tiny tool", "version": "1.0.0", "main": "tiny.wasm", "permissions": {"access": "read"}});
     Bundle { manifest: manifest.to_string(), wasm, assets: Vec::new() }.encode()
 }

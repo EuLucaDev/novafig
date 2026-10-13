@@ -6,9 +6,9 @@
 //! the moving tools.
 
 use egui::{Event, Key};
+use novafig_engine::live::{Access, Event as LiveEvent, HostInfo, Published, Role, SessionInfo, Status, VIEW_ONLY};
 use novafig_engine::novafig_collab::message::{ClientMsg, ServerMsg};
 use novafig_engine::novafig_collab::{Client, Limits, Outgoing, Server};
-use novafig_engine::live::{Access, Event as LiveEvent, HostInfo, Published, Role, SessionInfo, Status, VIEW_ONLY};
 use novafig_engine::tools::ToolId;
 use serde_json::json;
 

@@ -3,12 +3,12 @@
 
 use std::sync::Arc;
 
+use harfrust::{Direction, Feature, ShapeOptions, ShaperInstance, Tag, UnicodeBuffer, Variation};
 use novafig_doc::{
     DecorationLength, DecorationStyle, LeadingTrim, ListStyle, ParaList, TextAlignH, TextAutoResize, TextCase, TextData, TextDecoration, TextStyle,
     valid_feature_tag,
 };
 use novafig_geom::{Affine, BezPath, Rect};
-use harfrust::{Direction, Feature, ShapeOptions, ShaperInstance, Tag, UnicodeBuffer, Variation};
 
 use crate::fontdb::{Coords, Face, db, no_coords};
 

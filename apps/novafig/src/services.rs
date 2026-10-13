@@ -164,7 +164,8 @@ impl Services for Desktop {
     }
     fn clipboard_set_text(&mut self, s: &str) {
         if let Some(c) = self.clipboard.as_mut() {
-            let _ = c.set_text(s.to_string());
+            let text = novafig_collab_net::invite::browser_link(s).unwrap_or_else(|| s.to_string());
+            let _ = c.set_text(text);
         }
     }
     fn clipboard_get_text(&mut self) -> Option<String> {

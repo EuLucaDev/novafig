@@ -20,13 +20,13 @@
      xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
   <Package
       Name="NovaFig"
-      Manufacturer="Learning Machines LLC"
+      Manufacturer="Nova Foods"
       Version="$(var.Version)"
-      UpgradeCode="7F8B9827-D065-41B7-A514-2A454B21F484"
+      UpgradeCode="EB12A1AC-22F3-5C84-9564-7F162CFB4091"
       Scope="perMachine"
       Compressed="yes"
       Language="1033">
-    <SummaryInformation Description="NovaFig interface design and prototyping tool" Manufacturer="Learning Machines LLC" />
+    <SummaryInformation Description="NovaFig interface design and prototyping tool" Manufacturer="Nova Foods" />
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
     <MajorUpgrade AllowSameVersionUpgrades="yes"
@@ -83,7 +83,7 @@
 
   <Fragment>
     <ComponentGroup Id="NovafigFiles" Directory="INSTALLFOLDER">
-      <Component Id="NovafigApp" Guid="238228C3-4C1D-4B33-8C5D-C31B65BC2DA4">
+      <Component Id="NovafigApp" Guid="172A47AA-0DED-5D6C-862F-9B21D14ACBA7">
         <File Id="NovafigExe" Source="$(var.BinDir)\novafig.exe" KeyPath="yes">
           <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="NovaFig"
               Description="NovaFig interface design and prototyping" WorkingDirectory="INSTALLFOLDER" Advertise="yes"
@@ -121,6 +121,9 @@
         <File Id="NovafigCliExe" Source="$(var.BinDir)\novafig-cli.exe" KeyPath="yes" />
       </Component>
 <?endif?>
+      <Component Id="NovaFoodsLegalNotice">
+        <File Id="NovaFoodsLegalNoticeFile" Source="$(sys.SOURCEFILEDIR)..\..\NOTICE" KeyPath="yes" />
+      </Component>
     </ComponentGroup>
   </Fragment>
 </Wix>

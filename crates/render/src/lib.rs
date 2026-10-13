@@ -237,9 +237,7 @@ pub fn render_alone(doc: &Document, id: NodeId, view: &View, how: Alone) -> Opti
     let n = tmp.node_mut(id)?;
     n.is_mask = false;
     match how {
-        Alone::WithEffects => {
-            n.effects.retain(|e| !matches!(e.kind, novafig_doc::EffectKind::BackgroundBlur(_) | novafig_doc::EffectKind::Glass(_)))
-        }
+        Alone::WithEffects => n.effects.retain(|e| !matches!(e.kind, novafig_doc::EffectKind::BackgroundBlur(_) | novafig_doc::EffectKind::Glass(_))),
         Alone::Plain => {
             n.effects.clear();
             n.opacity = 1.0;

@@ -2,9 +2,9 @@
 
 use std::sync::Arc;
 
+use image::{ExtendedColorType, ImageEncoder, RgbaImage};
 use novafig_color::{ColorProfile, ImageFilters};
 use novafig_doc::ImageData;
-use image::{ExtendedColorType, ImageEncoder, RgbaImage};
 
 use crate::image_profile::{MAX_ICC_BYTES, Source};
 use crate::images;

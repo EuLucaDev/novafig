@@ -559,11 +559,8 @@ fn offset_path(s: &mut Session, p: &Value) -> Result<Value> {
         let Some((path, _)) = novafig_render::node_outline(doc, &n) else { continue };
         let props = StrokeProps { weight: d.abs() * 2.0, join: StrokeJoin::Round, align: StrokeAlign::Center, ..Default::default() };
         let ring = novafig_pathops::stroke_center(&path, d.abs() * 2.0, &props);
-        let res = if d >= 0.0 {
-            novafig_pathops::boolean(&[path, ring], BoolOp::Union)
-        } else {
-            novafig_pathops::boolean(&[path, ring], BoolOp::Subtract)
-        };
+        let res =
+            if d >= 0.0 { novafig_pathops::boolean(&[path, ring], BoolOp::Union) } else { novafig_pathops::boolean(&[path, ring], BoolOp::Subtract) };
         let Ok(mut res) = res else { continue };
         let bb = res.bounding_box();
         res.apply_affine(Affine::translate((-bb.x0, -bb.y0)));

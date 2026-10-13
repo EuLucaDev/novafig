@@ -571,8 +571,7 @@ fn one_address_cant_spend_everyones_plugin_downloads() {
     let fetch = || PluginReq::Fetch { id: "org.example.big".into(), version: None };
     let greedy = ip("198.51.100.1");
     // Its share runs out after a few; then 200 more tries cost nobody else anything.
-    let served =
-        (0..10).take_while(|_| matches!(store.plugins(greedy, false, fetch()), novafig_collab::message::PluginReply::Bundle { .. })).count();
+    let served = (0..10).take_while(|_| matches!(store.plugins(greedy, false, fetch()), novafig_collab::message::PluginReply::Bundle { .. })).count();
     assert!((2..=5).contains(&served), "{served}");
     for _ in 0..200 {
         let r = store.plugins(greedy, false, fetch());

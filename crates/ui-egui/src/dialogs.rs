@@ -171,11 +171,7 @@ pub fn show(app: &mut FigApp, ctx: &Context) {
                 if crate::widgets::checkbox(ui, on, tr("Open invite links in Nova Fig")) {
                     app.run("collab.registerLinks", json!({"on": !on}));
                 }
-                crate::widgets::label(
-                    ui,
-                    tr("novafig:// links from a browser, chat or email open this app and join the session."),
-                    t.text_secondary,
-                );
+                crate::widgets::label(ui, tr("novafig:// links from a browser, chat or email open this app and join the session."), t.text_secondary);
             }
             ui.add_space(8.0);
             ui.horizontal(|ui| {

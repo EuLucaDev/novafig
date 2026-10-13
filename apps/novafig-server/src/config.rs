@@ -81,7 +81,7 @@ impl Default for Config {
             max_file_mb: None,
             max_links: 100,
             max_connections: 512,
-            max_people: 256,
+            max_people: 1_000_000,
             compact_after: 1000,
             compact_mb: 16,
             max_plugins: 500,

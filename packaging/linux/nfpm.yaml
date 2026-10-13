@@ -14,7 +14,7 @@ release: 1
 section: graphics
 priority: optional
 maintainer: ${NOVAFIG_MAINTAINER}
-vendor: Learning Machines LLC
+vendor: Nova Foods
 homepage: https://workflowind.agcunae.com/apps/novafig
 license: MIT OR Apache-2.0
 description: |-

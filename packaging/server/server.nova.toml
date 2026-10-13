@@ -1,0 +1,16 @@
+listen = "0.0.0.0:47900"
+data = "/data"
+public_url = "wss://collab.agcunae.com/"
+open_publish = true
+operator_contact = "https://workflowind.agcunae.com/inbox"
+# No commercial seat quota; connections and storage remain bounded by server capacity.
+max_people = 1000000
+max_connections = 4096
+max_connections_per_ip = 1024
+max_total_mb = 10240
+max_files_per_ip = 20
+max_mb_per_ip = 256
+connects_per_minute = 120
+publishes_per_hour = 10
+messages_per_second = 200
+idle_days = 30.0

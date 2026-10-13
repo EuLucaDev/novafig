@@ -5,8 +5,8 @@
 
 use std::sync::{Arc, Mutex};
 
-use novafig_engine::novafig_collab::message::ClientMsg;
 use novafig_engine::live::{Access, Event as LiveEvent, HostOptions, LiveLink, Peer, Presence, Role, SessionInfo};
+use novafig_engine::novafig_collab::message::ClientMsg;
 use serde_json::{Value, json};
 
 use crate::live_tests::{Harness, has_text, text_center};

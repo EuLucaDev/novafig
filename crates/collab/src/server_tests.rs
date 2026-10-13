@@ -307,3 +307,23 @@ fn junk_batches_never_panic_and_never_corrupt_the_document() {
         assert!(s.document().validate().is_empty(), "{:?}", s.document().validate());
     }
 }
+
+#[test]
+fn default_room_accepts_more_than_256_people_and_still_edits() {
+    let (document, _, frame) = doc();
+    let mut server = Server::new(document, "tok", Limits::default());
+    for _ in 0..256 {
+        join(&mut server);
+    }
+    let mut last = join(&mut server);
+    let change = edit(&mut last, |d| {
+        d.create(frame, NodeKind::Rectangle, "Shared edit", 1.0, 2.0, 3.0, 4.0).unwrap();
+    });
+    let outgoing = server.receive(last.id(), change);
+    for message in for_client(&outgoing, last.id()) {
+        last.receive(message, &NoRecompute).unwrap();
+    }
+    assert_eq!(server.seq(), 1);
+    assert_eq!(last.pending(), 0);
+    assert_eq!(last.document(), server.document());
+}

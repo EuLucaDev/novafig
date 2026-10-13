@@ -1168,9 +1168,8 @@ fn pattern_fill(s: &mut Session, p: &Value) -> Result<Value> {
     let (lo, hi) = novafig_color::PatternPaint::SCALE_RANGE;
     pt.scale = num(p, "scale").filter(|v| v.is_finite()).unwrap_or(1.0).clamp(lo, hi);
     let mut q = if p.is_object() { p.clone() } else { json!({}) };
-    q["paint"] =
-        serde_json::to_value(novafig_color::Paint { kind: novafig_color::PaintKind::Pattern(pt), ..novafig_color::Paint::pattern(src.0) })
-            .map_err(|e| bad(CMD, e.to_string()))?;
+    q["paint"] = serde_json::to_value(novafig_color::Paint { kind: novafig_color::PaintKind::Pattern(pt), ..novafig_color::Paint::pattern(src.0) })
+        .map_err(|e| bad(CMD, e.to_string()))?;
     paint_set(s, &q, true)
 }
 

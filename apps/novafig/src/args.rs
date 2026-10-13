@@ -15,7 +15,9 @@ pub struct Args {
 
 /// An invite link rather than a file (`novafig:` links, in any case).
 pub fn is_invite(arg: &str) -> bool {
-    arg.get(..9).is_some_and(|s| s.eq_ignore_ascii_case("novafig:"))
+    const PREFIX: &str = "novafig:";
+    arg.get(..PREFIX.len()).is_some_and(|s| s.eq_ignore_ascii_case(PREFIX))
+        || (arg.starts_with("https://workflowind.agcunae.com/apps/join#invite=") && novafig_collab_net::Invite::parse_join(arg).is_ok())
 }
 
 /// The path a local `file://` URL names (`%XX` escapes decoded); `None` for anything else.

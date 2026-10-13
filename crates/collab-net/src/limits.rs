@@ -58,7 +58,7 @@ pub struct NetLimits {
 impl Default for NetLimits {
     fn default() -> Self {
         Self {
-            max_connections: 64,
+            max_connections: 1_000_000,
             max_client_message: novafig_collab::Limits::default().max_message_bytes,
             max_hello: 64 << 10,
             max_server_message: novafig_collab::Limits::default().max_message_bytes,

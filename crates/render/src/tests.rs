@@ -230,9 +230,9 @@ fn export_png_roundtrip() {
 
 #[test]
 fn exports_carry_the_colour_profile() {
+    use image::ImageDecoder;
     use novafig_color::ColorProfile;
     use novafig_doc::ExportFormat;
-    use image::ImageDecoder;
     let (d, _, r) = doc_with_rect(Color::from_hex("00FF00").unwrap());
     let pix = render_node(&d, r, 1.0).unwrap();
     for profile in ColorProfile::ALL {

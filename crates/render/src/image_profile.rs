@@ -6,9 +6,9 @@
 
 use std::io::Cursor;
 
-use novafig_color::ColorProfile;
 use image::{DynamicImage, ImageDecoder, ImageFormat, RgbaImage};
 use moxcms::{Chromaticity, ColorPrimaries, DataColorSpace, Layout, ParsingOptions, ProfileText, ToneReprCurve, TransformOptions, XyY};
+use novafig_color::ColorProfile;
 
 /// The most bytes an embedded profile may have; bigger ones are ignored.
 pub const MAX_ICC_BYTES: usize = 4 << 20;

@@ -40,9 +40,9 @@ pub use change::Target;
 pub use change::{Change, DocProp, Entry, Json, Prop};
 pub use client::{Client, HISTORY_LIMIT};
 pub use diff::{Diff, diff};
-pub use novafig_doc::{Document, NodeId};
 pub use history::{BatchKind, Notice};
 pub use message::{Accepted, Access, CatchUp, ClientMsg, EditingText, Hello, Peer, Presence, Processed, Resume, ServerMsg, Signal};
+pub use novafig_doc::{Document, NodeId};
 pub use replica::{Applied, Mode, Replica};
 pub use server::{Journal, Outgoing, Server, SessionState, VIEW_ONLY};
 
@@ -98,7 +98,7 @@ impl Default for Limits {
             max_message_bytes: 64 << 20,
             max_changes: 500_000,
             max_nodes: 5_000_000,
-            max_peers: 256,
+            max_peers: 1_000_000,
             max_name: 64,
             max_log_batches: 10_000,
             max_log_changes: 1_000_000,

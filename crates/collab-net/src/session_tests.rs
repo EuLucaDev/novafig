@@ -194,10 +194,7 @@ fn edits_sync_between_apps() {
     let text = id_of(&host.execute("text.create", &json!({"x": 10, "y": 300, "text": "Hello"})).unwrap());
     all(&mut host, &mut a, &mut b, "everyone agreeing", &|h, a, b| {
         let (hd, ad, bd) = (h.doc().unwrap(), a.doc().unwrap(), b.doc().unwrap());
-        same(hd, ad)
-            && same(hd, bd)
-            && ad.contains(novafig_doc::NodeId(text))
-            && hd.node(novafig_doc::NodeId(rect)).is_some_and(|n| n.name == "Card")
+        same(hd, ad) && same(hd, bd) && ad.contains(novafig_doc::NodeId(text)) && hd.node(novafig_doc::NodeId(rect)).is_some_and(|n| n.name == "Card")
     });
     let (hd, ad) = (host.doc().unwrap().clone(), a.doc().unwrap().clone());
     let n = ad.node(novafig_doc::NodeId(rect)).unwrap();

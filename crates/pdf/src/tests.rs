@@ -231,10 +231,8 @@ fn hostile_inputs_error_or_skip() {
         let mut g = Gradient::default_for(GradientKind::Linear, Color::BLACK);
         g.to = (f64::NAN, 0.0);
         n.fills = vec![Paint::gradient(g)];
-        n.effects = vec![Effect {
-            kind: EffectKind::DropShadow(novafig_doc::Shadow { radius: f64::NAN, spread: 1e9, ..Default::default() }),
-            visible: true,
-        }];
+        n.effects =
+            vec![Effect { kind: EffectKind::DropShadow(novafig_doc::Shadow { radius: f64::NAN, spread: 1e9, ..Default::default() }), visible: true }];
     }
     let t = d.create(f, NodeKind::Text(TextData::new("x")), "T", 0.0, 0.0, 10.0, 10.0).unwrap();
     if let NodeKind::Text(td) = &mut d.get_mut(t).unwrap().kind {

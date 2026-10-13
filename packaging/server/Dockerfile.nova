@@ -1,0 +1,15 @@
+# Nova Foods collaboration service. Persistent data lives in /data.
+FROM rust:1-bookworm AS build
+WORKDIR /src
+COPY . .
+RUN cargo build --release --locked --jobs 2 -p novafig-server && mkdir -p /out/data
+
+FROM gcr.io/distroless/cc-debian12:nonroot
+COPY --from=build /src/target/release/novafig-server /usr/local/bin/novafig-server
+COPY packaging/server/server.nova.toml /etc/novafig-server/server.toml
+COPY --from=build --chown=nonroot:nonroot /out/data /data
+USER nonroot
+VOLUME /data
+EXPOSE 47900
+STOPSIGNAL SIGTERM
+ENTRYPOINT ["/usr/local/bin/novafig-server", "--config", "/etc/novafig-server/server.toml"]
