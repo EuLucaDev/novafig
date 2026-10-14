@@ -17,3 +17,5 @@ novafig-text = { workspace = true }
 novafig-pathops = { workspace = true }
 usvg = { workspace = true }
 base64 = { workspace = true }
+flate2 = { workspace = true }
+thiserror = { workspace = true }

@@ -17,6 +17,7 @@ novafig-layout = { workspace = true }
 novafig-render = { workspace = true }
 novafig-pathops = { workspace = true }
 novafig-engine = { workspace = true }
+novafig-format = { workspace = true }
 egui = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

@@ -148,7 +148,8 @@ shared-mime-info file for `.novafig`) and builds every format from it: `.tar.gz`
 `.rpm` with [nfpm](https://nfpm.goreleaser.com/) (`nfpm.yaml` lists the dlopen'd runtime
 libraries as dependencies); and an `.AppImage` with update information and a `.zsync`, whose
 `AppRun` registers the desktop entry and icons on launch so Wayland docks show the right icon
-(`NOVAFIG_NO_DESKTOP_INTEGRATION=1` opts out; covered by `apprun-test.sh`).
+(`NOVAFIG_NO_DESKTOP_INTEGRATION=1` opts out; covered by `apprun-test.sh`) and runs the bundled
+`novafig-cli` for `Nova Fig.AppImage cli <args>`.
 `flatpak-bundle.sh` repackages the tarball into a `.flatpak` with
 `flatpak/br.com.novafoods.novafig.bundle.yml` (freedesktop 26.08). `flatpak/br.com.novafoods.novafig.yml`
 is the from-source manifest for a Flathub submission (not built in CI; vendor crates with
