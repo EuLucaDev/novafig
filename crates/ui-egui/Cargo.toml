@@ -10,7 +10,7 @@ workspace = true
 
 [dependencies]
 # Os 14 temas de interface da suíte Nova Foods (os do Nova Photo), em todos os alvos.
-nova-themes = { git = "https://github.com/EuLucaDev/nova-live", rev = "09fedc5f70f977109e5d76c4e89db37e0f54ee50" }
+nova-themes = { git = "https://github.com/EuLucaDev/nova-live", rev = "d0c50673eb1b525c3efbfda72e33bdeb4569e1e7" }
 novafig-geom = { workspace = true }
 novafig-color = { workspace = true }
 novafig-doc = { workspace = true }
@@ -36,5 +36,5 @@ toml = "1"
 wat = { workspace = true }
 
 [target.'cfg(not(target_arch = "wasm32"))'.dependencies]
-nova-live = { git = "https://github.com/EuLucaDev/nova-live", rev = "25720ad8a7aa8cc6e10ffd13091bd69873d9fd95" }
-nova-account-ui = { git = "https://github.com/EuLucaDev/nova-live", rev = "25720ad8a7aa8cc6e10ffd13091bd69873d9fd95" }
+nova-live = { git = "https://github.com/EuLucaDev/nova-live", rev = "d0c50673eb1b525c3efbfda72e33bdeb4569e1e7" }
+nova-account-ui = { git = "https://github.com/EuLucaDev/nova-live", rev = "d0c50673eb1b525c3efbfda72e33bdeb4569e1e7" }
