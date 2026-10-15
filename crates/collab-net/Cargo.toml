@@ -28,7 +28,7 @@ webpki-roots = "1"
 getrandom = "0.4"
 base64 = { workspace = true }
 serde_json = { workspace = true }
-nova-live = { git = "https://github.com/EuLucaDev/nova-live", rev = "ea81ea85a47e12da21d364911b7f168dab8c1c69" }
+nova-live = { git = "https://github.com/EuLucaDev/nova-live", rev = "25720ad8a7aa8cc6e10ffd13091bd69873d9fd95" }
 
 # The browser client: the page's WebSocket API.
 [target.'cfg(target_arch = "wasm32")'.dependencies]
