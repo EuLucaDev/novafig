@@ -2488,7 +2488,7 @@ checksum = "2bf50223579dc7cdcfb3bfcacf7069ff68243f8c363f62ffa99cf000a6b9c451"
 
 [[package]]
 name = "novafig"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "arboard",
  "eframe",
@@ -2511,7 +2511,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-cli"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "novafig-doc",
  "novafig-engine",
@@ -2525,7 +2525,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-collab"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "base64 0.22.1",
  "imbl",
@@ -2540,7 +2540,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-collab-net"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "base64 0.22.1",
  "getrandom 0.4.3",
@@ -2563,7 +2563,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-color"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "kurbo",
  "serde",
@@ -2572,7 +2572,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-doc"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "imbl",
  "novafig-color",
@@ -2584,7 +2584,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-engine"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "base64 0.22.1",
  "image",
@@ -2611,7 +2611,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-format"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "flate2",
  "image",
@@ -2626,7 +2626,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-geom"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "kurbo",
  "serde",
@@ -2634,7 +2634,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-layout"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "novafig-doc",
  "novafig-geom",
@@ -2642,7 +2642,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-mcp"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "base64 0.22.1",
  "image",
@@ -2658,7 +2658,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-pathops"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "linesweeper",
  "novafig-doc",
@@ -2667,7 +2667,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-pdf"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "flate2",
  "krilla",
@@ -2684,7 +2684,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-plugin"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "novafig-color",
  "serde",
@@ -2697,7 +2697,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-render"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "crc32fast",
  "image",
@@ -2715,7 +2715,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-server"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "crc32fast",
  "ctrlc",
@@ -2739,7 +2739,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-svg"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "base64 0.22.1",
  "flate2",
@@ -2755,7 +2755,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-text"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "harfrust 0.13.3",
  "log",
@@ -2768,7 +2768,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-ui-egui"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "base64 0.22.1",
  "egui",
@@ -2792,7 +2792,7 @@ dependencies = [
 
 [[package]]
 name = "novafig-web"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "eframe",
  "egui",
@@ -5807,7 +5807,7 @@ checksum = "9440ea3e5aeabb0ac63af70daf835274065238cdd0cec83418f417eae38bacee"
 
 [[package]]
 name = "xtask"
-version = "0.5.1"
+version = "0.6.0"
 dependencies = [
  "novafig-engine",
  "serde_json",
