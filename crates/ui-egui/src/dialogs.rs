@@ -220,11 +220,31 @@ pub fn show(app: &mut FigApp, ctx: &Context) {
             ui.add_space(8.0);
             ui.horizontal(|ui| {
                 ui.label(tr("Theme"));
-                for (l, c) in [(tr_noop("Light"), "view.themeLight"), (tr_noop("Dark"), "view.themeDark"), (tr_noop("System"), "view.themeSystem")] {
-                    if ui.selectable_label(app.session.prefs.theme.eq_ignore_ascii_case(l), tr(l)).clicked() {
-                        app.run(c, json!({}));
+                let current = app.session.prefs.theme.clone();
+                let shown = match nova_themes::ThemeKind::from_name(&current) {
+                    Some(kind) => kind.label().to_string(),
+                    None => tr(match current.as_str() {
+                        "dark" => "Dark",
+                        "system" => "System",
+                        _ => "Light",
+                    })
+                    .to_string(),
+                };
+                egui::ComboBox::from_id_salt("pref_theme").width(180.0).selected_text(shown).show_ui(ui, |ui| {
+                    for (l, c) in
+                        [(tr_noop("Light"), "view.themeLight"), (tr_noop("Dark"), "view.themeDark"), (tr_noop("System"), "view.themeSystem")]
+                    {
+                        if ui.selectable_label(current.eq_ignore_ascii_case(l), tr(l)).clicked() {
+                            app.run(c, json!({}));
+                        }
                     }
-                }
+                    ui.separator();
+                    for kind in nova_themes::ThemeKind::ALL {
+                        if ui.selectable_label(current == kind.id(), kind.label()).clicked() {
+                            app.run(&format!("view.theme.{}", kind.id()), json!({}));
+                        }
+                    }
+                });
             });
             ui.add_space(8.0);
             ui.horizontal(|ui| {

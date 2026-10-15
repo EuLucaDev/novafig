@@ -135,6 +135,52 @@ impl Tokens {
     pub fn get(ctx: &Context) -> Tokens {
         ctx.data(|d| d.get_temp::<Tokens>(tokens_id())).unwrap_or_else(Tokens::light)
     }
+
+    /// A suite theme paints the interface (bars, panels, fields, text, menus, accent); the
+    /// canvas content, component purple and guides keep Nova Fig's own colours.
+    pub fn for_suite(kind: nova_themes::ThemeKind) -> Self {
+        let p = kind.palette();
+        let dark = kind.is_dark();
+        let base = if dark { Tokens::dark() } else { Tokens::light() };
+        let ink = if dark { nova_themes::mix(p.accent, [255, 255, 255, 255], 0.2) } else { nova_themes::mix(p.accent, [0, 0, 0, 255], 0.2) };
+        Tokens {
+            dark,
+            bg: rgba(p.chrome),
+            panel: rgba(p.card),
+            canvas: rgba(p.canvas),
+            border: rgba(p.separator),
+            border_strong: rgba(p.field_border),
+            text: rgba(p.text),
+            text_secondary: rgba(p.text_dim),
+            text_tertiary: rgba(p.text_faint),
+            icon: rgba(p.icon),
+            icon_secondary: rgba(p.text_dim),
+            hover: rgba(p.hover),
+            pressed: rgba(p.pressed),
+            field: rgba(p.field),
+            field_hover_border: rgba(p.field_border),
+            accent: rgba(p.accent),
+            accent_hover: rgba(nova_themes::mix(p.accent, [0, 0, 0, 255], 0.12)),
+            accent_text: rgba(ink),
+            selected_row: rgba(nova_themes::alpha(p.accent, if dark { 80 } else { 50 })),
+            selected_row_child: rgba(nova_themes::alpha(p.accent, if dark { 40 } else { 25 })),
+            danger: rgba(p.danger),
+            warning: rgba(p.warning),
+            tab_bar: rgba(p.chrome),
+            tab_active: rgba(p.card),
+            shadow: rgba(p.shadow),
+            menu: rgba(p.card),
+            menu_text: rgba(p.text),
+            menu_hover: rgba(p.hover),
+            menu_dim: rgba(p.text_faint),
+            focus: rgba(p.accent),
+            ..base
+        }
+    }
+}
+
+fn rgba(c: nova_themes::Rgba) -> Color32 {
+    Color32::from_rgba_unmultiplied(c[0], c[1], c[2], c[3])
 }
 
 fn tokens_id() -> egui::Id {

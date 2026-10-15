@@ -889,15 +889,22 @@ impl FigApp {
                 theme::install_fonts(ctx, true, cjk);
             }
         }
-        let dark = match self.session.prefs.theme.as_str() {
-            "dark" => true,
-            "system" => ctx.global_style().visuals.dark_mode,
+        let suite = nova_themes::ThemeKind::from_name(&self.session.prefs.theme);
+        let dark = match (suite, self.session.prefs.theme.as_str()) {
+            (Some(kind), _) => kind.is_dark(),
+            (None, "dark") => true,
+            (None, "system") => ctx.global_style().visuals.dark_mode,
             _ => false,
         };
         self.ui.dark = dark;
         // New files and pages take the theme's page colour (existing pages keep theirs).
         self.session.set_ui_dark(dark);
-        theme::apply_with(ctx, if dark { theme::Tokens::dark() } else { theme::Tokens::light() }, self.reduce_motion());
+        let tokens = match suite {
+            Some(kind) => theme::Tokens::for_suite(kind),
+            None if dark => theme::Tokens::dark(),
+            None => theme::Tokens::light(),
+        };
+        theme::apply_with(ctx, tokens, self.reduce_motion());
         if self.worker.is_none() {
             self.worker = Some(render_worker::Worker::new(ctx.clone()));
         }

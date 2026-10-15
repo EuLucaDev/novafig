@@ -127,6 +127,22 @@ pub static MENU: &[MenuItem] = &[
     m!("View/Theme", "Light", "view.themeLight"),
     m!("View/Theme", "Dark", "view.themeDark"),
     m!("View/Theme", "Follow system", "view.themeSystem"),
+    // Nova Foods suite themes (Nova Photo's fourteen); left out of the parity count.
+    m!("View/Theme", SEP, ""),
+    m!("View/Theme", "Pro (Dark)", "view.theme.pro"),
+    m!("View/Theme", "Pro (Medium Gray)", "view.theme.proMedium"),
+    m!("View/Theme", "Pro (Light Gray)", "view.theme.proLightGray"),
+    m!("View/Theme", "Pro (Light)", "view.theme.proLight"),
+    m!("View/Theme", "Studio (Dark)", "view.theme.studio"),
+    m!("View/Theme", "Studio (Light)", "view.theme.studioLight"),
+    m!("View/Theme", "Classic", "view.theme.classic"),
+    m!("View/Theme", "Solarized Dark", "view.theme.solarizedDark"),
+    m!("View/Theme", "Adwaita (Light)", "view.theme.adwaita"),
+    m!("View/Theme", "Adwaita (Dark)", "view.theme.adwaitaDark"),
+    m!("View/Theme", "Breeze Light", "view.theme.breezeLight"),
+    m!("View/Theme", "Breeze Dark", "view.theme.breezeDark"),
+    m!("View/Theme", "Soft Dark", "view.theme.softDark"),
+    m!("View/Theme", "Soft Light", "view.theme.softLight"),
     // Object
     m!("Object", "Frame selection", "object.frameSelection"),
     m!("Object", "Group selection", "object.group"),
@@ -294,7 +310,7 @@ pub fn parity(extra: &[&str]) -> (usize, usize, Vec<&'static str>) {
     let mut done = 0;
     let mut missing = Vec::new();
     let mut total = 0;
-    for m in items().filter(|m| !m.id.starts_with("collab.") && !OWN.contains(&m.id)) {
+    for m in items().filter(|m| !m.id.starts_with("collab.") && !m.id.starts_with("view.theme.") && !OWN.contains(&m.id)) {
         total += 1;
         if crate::find_command(m.id).is_some() || extra.contains(&m.id) {
             done += 1;

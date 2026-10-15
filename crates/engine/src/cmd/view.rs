@@ -328,6 +328,62 @@ pub fn specs() -> Vec<CommandSpec> {
             s.prefs.theme = "system".into();
             ok()
         }),
+        spec!("view.theme.pro", "Pro (Dark) theme", "{}", false, |s, _| {
+            s.prefs.theme = "pro".into();
+            ok()
+        }),
+        spec!("view.theme.proMedium", "Pro (Medium Gray) theme", "{}", false, |s, _| {
+            s.prefs.theme = "proMedium".into();
+            ok()
+        }),
+        spec!("view.theme.proLightGray", "Pro (Light Gray) theme", "{}", false, |s, _| {
+            s.prefs.theme = "proLightGray".into();
+            ok()
+        }),
+        spec!("view.theme.proLight", "Pro (Light) theme", "{}", false, |s, _| {
+            s.prefs.theme = "proLight".into();
+            ok()
+        }),
+        spec!("view.theme.studio", "Studio (Dark) theme", "{}", false, |s, _| {
+            s.prefs.theme = "studio".into();
+            ok()
+        }),
+        spec!("view.theme.studioLight", "Studio (Light) theme", "{}", false, |s, _| {
+            s.prefs.theme = "studioLight".into();
+            ok()
+        }),
+        spec!("view.theme.classic", "Classic theme", "{}", false, |s, _| {
+            s.prefs.theme = "classic".into();
+            ok()
+        }),
+        spec!("view.theme.solarizedDark", "Solarized Dark theme", "{}", false, |s, _| {
+            s.prefs.theme = "solarizedDark".into();
+            ok()
+        }),
+        spec!("view.theme.adwaita", "Adwaita (Light) theme", "{}", false, |s, _| {
+            s.prefs.theme = "adwaita".into();
+            ok()
+        }),
+        spec!("view.theme.adwaitaDark", "Adwaita (Dark) theme", "{}", false, |s, _| {
+            s.prefs.theme = "adwaitaDark".into();
+            ok()
+        }),
+        spec!("view.theme.breezeLight", "Breeze Light theme", "{}", false, |s, _| {
+            s.prefs.theme = "breezeLight".into();
+            ok()
+        }),
+        spec!("view.theme.breezeDark", "Breeze Dark theme", "{}", false, |s, _| {
+            s.prefs.theme = "breezeDark".into();
+            ok()
+        }),
+        spec!("view.theme.softDark", "Soft Dark theme", "{}", false, |s, _| {
+            s.prefs.theme = "softDark".into();
+            ok()
+        }),
+        spec!("view.theme.softLight", "Soft Light theme", "{}", false, |s, _| {
+            s.prefs.theme = "softLight".into();
+            ok()
+        }),
         spec!("pref.keepTool", "Keep tool selected after use", "{on?}", false, |s, p| pref(s, p, |x| &mut x.keep_tool)),
         spec!("pref.highlightHover", "Highlight layers on hover", "{on?}", false, |s, p| pref(s, p, |x| &mut x.highlight_on_hover)),
         spec!("pref.renameDuplicates", "Rename duplicated layers", "{on?}", false, |s, p| pref(s, p, |x| &mut x.rename_duplicates)),

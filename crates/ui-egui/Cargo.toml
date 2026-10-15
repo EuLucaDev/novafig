@@ -9,6 +9,8 @@ description = "NovaFig egui frontend (the Figma-style UI: canvas, toolbar, layer
 workspace = true
 
 [dependencies]
+# Os 14 temas de interface da suíte Nova Foods (os do Nova Photo), em todos os alvos.
+nova-themes = { git = "https://github.com/EuLucaDev/nova-live", rev = "09fedc5f70f977109e5d76c4e89db37e0f54ee50" }
 novafig-geom = { workspace = true }
 novafig-color = { workspace = true }
 novafig-doc = { workspace = true }

@@ -2558,6 +2558,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "nova-themes"
+version = "0.1.0"
+source = "git+https://github.com/EuLucaDev/nova-live?rev=09fedc5f70f977109e5d76c4e89db37e0f54ee50#09fedc5f70f977109e5d76c4e89db37e0f54ee50"
+
+[[package]]
 name = "novafig"
 version = "0.6.1"
 dependencies = [
@@ -2849,6 +2854,7 @@ dependencies = [
  "log",
  "nova-account-ui",
  "nova-live",
+ "nova-themes",
  "novafig-color",
  "novafig-doc",
  "novafig-engine",
