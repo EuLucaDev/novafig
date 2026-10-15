@@ -27,6 +27,8 @@ rustls-pki-types = { version = "1", features = ["std"] }
 webpki-roots = "1"
 getrandom = "0.4"
 base64 = { workspace = true }
+serde_json = { workspace = true }
+nova-live = { git = "https://github.com/EuLucaDev/nova-live", rev = "b5c44c66604d6a6ea210d724c4f1de1bc2c5431b" }
 
 # The browser client: the page's WebSocket API.
 [target.'cfg(target_arch = "wasm32")'.dependencies]

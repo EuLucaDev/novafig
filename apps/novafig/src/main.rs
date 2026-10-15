@@ -82,8 +82,17 @@ impl eframe::App for App {
     }
 
     fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
+        #[cfg(not(target_arch = "wasm32"))]
+        if !novafig_ui_egui::account_ui::gate(ui, "novafig") {
+            return;
+        }
         let ctx = ui.ctx().clone();
-        with_app(|fig| novafig_ui_egui::windows::guard(fig, &ctx, |fig| fig.ui(ui)));
+        with_app(|fig| {
+            if let Some(profile) = novafig_ui_egui::account_ui::profile() {
+                fig.session.prefs.user_name = profile.user.name.chars().take(64).collect();
+            }
+            novafig_ui_egui::windows::guard(fig, &ctx, |fig| fig.ui(ui));
+        });
     }
 
     fn on_exit(&mut self) {

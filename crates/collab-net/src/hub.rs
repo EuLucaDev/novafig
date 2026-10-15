@@ -402,6 +402,7 @@ enum HubIn {
         sock: TcpStream,
         /// Its size (in flight until handled).
         bytes: usize,
+        account: Option<nova_live::identity::Profile>,
     },
     Msg {
         conn: u64,
@@ -846,9 +847,11 @@ fn serve(mut stream: TcpStream, conn: u64, hub: &Sender<HubIn>, limits: NetLimit
     let Ok((rd, wr, sock)) = Duplex::split(stream, None) else { return };
     let cfg = config(limits.max_client_message);
     let mut forwarded = None;
+    let mut account_token = None;
     // The handshake callback's type is tungstenite's (its error is an HTTP response).
     #[allow(clippy::result_large_err)]
     let read_client = |req: &Request, resp: Response| -> Result<Response, ErrorResponse> {
+        account_token = crate::account::bearer(req);
         if proxied {
             forwarded = forwarded_for(req);
         }
@@ -909,7 +912,7 @@ fn serve(mut stream: TcpStream, conn: u64, hub: &Sender<HubIn>, limits: NetLimit
     } else {
         match next_message(&mut ws, limits.max_hello) {
             Ok(Some((
-                first @ (ClientMsg::Hello(_)
+                mut first @ (ClientMsg::Hello(_)
                 | ClientMsg::Manage(_)
                 | ClientMsg::OpenLibrary(_)
                 | ClientMsg::OpenPlugins(_)
@@ -917,6 +920,22 @@ fn serve(mut stream: TcpStream, conn: u64, hub: &Sender<HubIn>, limits: NetLimit
                 | ClientMsg::Resolve(_)),
                 bytes,
             ))) => {
+                // Only the operator's key retains its separate administrative authentication.
+                let authenticated = if crate::account::required() && !matches!(first, ClientMsg::Manage(_)) {
+                    match account_token.as_deref().ok_or_else(|| "Conecte sua conta Nova Foods.".to_string()).and_then(crate::account::validate) {
+                        Ok(profile) => Some(profile),
+                        Err(why) => {
+                            end(Some(&why));
+                            shutdown(&sock);
+                            return;
+                        }
+                    }
+                } else {
+                    None
+                };
+                if let (Some(profile), ClientMsg::Hello(hello)) = (&authenticated, &mut first) {
+                    hello.name = profile.user.name.chars().take(MAX_NAME).collect();
+                }
                 // Sessions and the operator may use the last connections; one-shot requests
                 // (hosting, libraries, browsing plugins) leave them free.
                 let session = matches!(first, ClientMsg::Hello(_) | ClientMsg::Manage(_));
@@ -931,9 +950,11 @@ fn serve(mut stream: TcpStream, conn: u64, hub: &Sender<HubIn>, limits: NetLimit
                     end(Some(BUSY));
                 } else {
                     ws.set_config(|c| *c = config(max));
-                    let opened = sock.try_clone().is_ok_and(|s| hub.send(HubIn::Open { conn, ip, first, out: out.clone(), sock: s, bytes }).is_ok());
+                    let opened = sock.try_clone().is_ok_and(|s| {
+                        hub.send(HubIn::Open { conn, ip, first, out: out.clone(), sock: s, bytes, account: authenticated.clone() }).is_ok()
+                    });
                     if opened && ws.get_ref().set_read_timeout(Some(idle)).is_ok() {
-                        read_loop(&mut ws, conn, hub, limits, max, &shared.in_flight, &end);
+                        read_loop(&mut ws, conn, hub, limits, max, &shared.in_flight, &end, authenticated.as_ref().zip(account_token.as_deref()));
                         let _ = hub.send(HubIn::Gone { conn });
                     }
                 }
@@ -961,13 +982,24 @@ fn read_loop(
     max: usize,
     in_flight: &InFlight,
     end: &dyn Fn(Option<&str>),
+    account: Option<(&nova_live::identity::Profile, &str)>,
 ) {
     let mut bucket = Bucket::new(limits.rate, limits.burst);
     let mut signals = Bucket::new(SIGNAL_RATE, SIGNAL_BURST);
+    let mut checked = Instant::now();
     loop {
         match next_message(ws, max) {
             Ok(Some((msg, bytes))) => {
                 let now = Instant::now();
+                if checked.elapsed() >= Duration::from_secs(60) {
+                    if let Some((original, token)) = account {
+                        match crate::account::validate(token) {
+                            Ok(current) if current.user.id == original.user.id && current.organization.id == original.organization.id => {}
+                            _ => return end(Some("Seu acesso ao Nova Fig mudou. Conecte novamente sua conta.")),
+                        }
+                    }
+                    checked = Instant::now();
+                }
                 if !bucket.take(now) {
                     log::info!("live session: connection {conn} sends too much; disconnecting it");
                     return end(Some("too many messages"));
@@ -1055,6 +1087,7 @@ enum Kind {
 
 /// A connection whose first message the hub is looking at.
 struct Pending {
+    account: Option<nova_live::identity::Profile>,
     out: Line,
     sock: TcpStream,
     ip: IpAddr,
@@ -1166,7 +1199,7 @@ impl<B: Backend> Hub<B> {
 
     fn handle(&mut self, m: HubIn) {
         match m {
-            HubIn::Open { conn, ip, first, out, sock, bytes } => {
+            HubIn::Open { conn, ip, first, out, sock, bytes, account } => {
                 self.in_flight.give(bytes);
                 // The operator (with the server key) gets in from anywhere; everyone else is
                 // checked (blocked addresses, connection rates).
@@ -1175,7 +1208,7 @@ impl<B: Backend> Hub<B> {
                     log::info!("event=refused ip={ip} reason={why:?}");
                     return refuse(&out, &why);
                 }
-                let c = Pending { out, sock, ip };
+                let c = Pending { out, sock, ip, account };
                 match first {
                     ClientMsg::Hello(hello) => self.join(conn, hello, c),
                     ClientMsg::Manage(m) => self.manage(conn, &m, c),
@@ -1305,6 +1338,11 @@ impl<B: Backend> Hub<B> {
             Ok(a) => a,
             Err(why) => return refuse(&c.out, &why),
         };
+        if let Some(profile) = &c.account {
+            if let Err(why) = crate::account::file(profile, &hello.file, true) {
+                return refuse(&c.out, &why);
+            }
+        }
         let hosting = reads_hosting(&hello.client_version);
         // The backend checked the secret: the sessions don't keep it.
         hello.token.clear();
@@ -1388,6 +1426,11 @@ impl<B: Backend> Hub<B> {
             Ok(a) => (a.access, a.link),
             Err(why) => return refuse(&c.out, &why),
         };
+        if let Some(profile) = &c.account {
+            if let Err(why) = crate::account::file(profile, &o.file, true) {
+                return refuse(&c.out, &why);
+            }
+        }
         self.take_in(conn, c, Kind::Library { file: o.file, access, link }, &ServerMsg::Library(Box::new(LibraryReply::Ready { access })));
     }
 
@@ -1416,6 +1459,11 @@ impl<B: Backend> Hub<B> {
                 return refuse(&c.out, &why);
             }
         };
+        if let Some(profile) = &c.account {
+            if let Err(why) = crate::account::file(profile, &o.file, !o.owner.is_empty()) {
+                return refuse(&c.out, &why);
+            }
+        }
         let owns = (!o.owner.is_empty()).then(|| o.file.clone());
         self.take_in(conn, c, Kind::Hosting { owns }, &ServerMsg::Hosting(Box::new(info)));
     }
@@ -1428,6 +1476,11 @@ impl<B: Backend> Hub<B> {
         }
         match self.backend.resolve(c.ip, &r.code) {
             Ok((file, token)) => {
+                if let Some(profile) = &c.account {
+                    if let Err(why) = crate::account::file(profile, &file, true) {
+                        return refuse(&c.out, &why);
+                    }
+                }
                 if let Some(b) = encode(&ServerMsg::Resolved { file, token }) {
                     let _ = c.out.tx.try_send(Out::Bytes(b, None));
                 }

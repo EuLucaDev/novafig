@@ -88,7 +88,7 @@ pub fn right_panel(app: &mut FigApp, ui: &mut Ui) {
     let sw = (label.size().x + 24.0).max(56.0);
     let share = Rect::from_min_size(pos2(top.max.x - 14.0 - sw, top.center().y - 16.0), vec2(sw, 32.0));
     let sresp = ui.interact(share, ui.id().with("share"), Sense::click()).tip(tr("Share: live session, export"));
-    ui.painter().rect_filled(share, CornerRadius::same(6), if sresp.hovered() { t.accent_hover } else { ACCENT });
+    ui.painter().rect_filled(share, CornerRadius::same(12), if sresp.hovered() { t.accent_hover } else { ACCENT });
     ui.painter().galley(share.center() - label.size() / 2.0, label, Color32::WHITE);
     crate::live::share_popover(app, &sresp);
     // Play presents; its chevron opens the play menu (present, or preview in a pane).
@@ -99,7 +99,7 @@ pub fn right_panel(app: &mut FigApp, ui: &mut Ui) {
     let presp = ui.interact(tri_r, ui.id().with("play"), Sense::click()).tip(format!("{}  {present_keys}", tr("Present")));
     let mresp = ui.interact(chev_r, ui.id().with("play_menu"), Sense::click()).tip(tr("Present or preview"));
     if presp.hovered() || mresp.hovered() {
-        ui.painter().rect_filled(play, CornerRadius::same(5), t.hover);
+        ui.painter().rect_filled(play, CornerRadius::same(8), t.hover);
     }
     let tri = Rect::from_center_size(play.center() - vec2(7.0, 0.0), vec2(16.0, 16.0));
     let c = tri.center();

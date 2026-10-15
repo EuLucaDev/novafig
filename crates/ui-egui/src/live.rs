@@ -16,7 +16,7 @@
 use std::collections::BTreeMap;
 
 use egui::{Align2, Color32, CornerRadius, Pos2, Rect, Sense, Shape, Stroke, Ui, pos2, vec2};
-use novafig_engine::live::{Access, PEOPLE, Role, SessionId, Share, Signal, Status, Via, initials, parse_color, presence_page};
+use novafig_engine::live::{Access, PEOPLE, Role, SessionId, Share, Signal, Status, Via, parse_color, presence_page};
 use serde_json::{Value, json};
 
 use crate::FigApp;
@@ -162,8 +162,15 @@ pub fn text_on(fill: Color32) -> Color32 {
 
 /// An avatar: the initials in a circle of the person's colour.
 pub fn avatar(painter: &egui::Painter, center: Pos2, r: f32, name: &str, fill: Color32) {
-    painter.circle_filled(center, r, fill);
-    painter.text(center, Align2::CENTER_CENTER, initials(name), semibold(r * 0.8), text_on(fill));
+    #[cfg(not(target_arch = "wasm32"))]
+    {
+        nova_account_ui::paint_person(painter, center, r, name, fill);
+    }
+    #[cfg(target_arch = "wasm32")]
+    {
+        painter.circle_filled(center, r, fill);
+        painter.text(center, Align2::CENTER_CENTER, novafig_engine::live::initials(name), semibold(r * 0.8), text_on(fill));
+    }
 }
 
 /// Nova Fig's remote pointer: a notched dart pointing up-left from `tip`, filled with the
@@ -543,10 +550,13 @@ pub fn people_bar(app: &mut FigApp, ui: &mut Ui, area: Rect) {
 
 /// The Share button's popover: the live session (start, invite link, stop or leave) and export.
 pub fn share_popover(app: &mut FigApp, anchor: &egui::Response) {
-    menu_popup(anchor).width(300.0).close_behavior(egui::PopupCloseBehavior::CloseOnClickOutside).show(|ui| {
+    menu_popup(anchor).width(340.0).close_behavior(egui::PopupCloseBehavior::CloseOnClickOutside).show(|ui| {
         let t = Tokens::get(ui.ctx());
         ui.spacing_mut().item_spacing.y = 6.0;
-        ui.set_max_width(300.0);
+        ui.set_max_width(340.0);
+        #[cfg(not(target_arch = "wasm32"))]
+        nova_account_ui::account_panel(ui, "novafig");
+        ui.separator();
         // Menus lay out justified and don't wrap: the session's notes wrap, left-aligned, within
         // the popover's width.
         ui.with_layout(egui::Layout::top_down(egui::Align::Min), |ui| {

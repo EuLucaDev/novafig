@@ -23,6 +23,8 @@ mod sessions;
 pub mod throttle;
 
 #[cfg(not(target_arch = "wasm32"))]
+mod account;
+#[cfg(not(target_arch = "wasm32"))]
 pub mod guest;
 #[cfg(not(target_arch = "wasm32"))]
 pub mod host;

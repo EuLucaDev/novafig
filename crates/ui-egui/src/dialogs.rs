@@ -175,9 +175,18 @@ pub fn show(app: &mut FigApp, ctx: &Context) {
             }
             ui.add_space(8.0);
             ui.horizontal(|ui| {
-                ui.label(tr("Your name in comments"));
-                if let Some(name) = crate::widgets::text_field(ui, egui::Id::new("pref_user_name"), &prefs.user_name, 160.0, tr("You")) {
-                    app.run("pref.userName", json!({"name": name}));
+                #[cfg(not(target_arch = "wasm32"))]
+                let account = nova_live::identity::profile().map(|profile| profile.user.name);
+                #[cfg(target_arch = "wasm32")]
+                let account: Option<String> = None;
+                if let Some(name) = account {
+                    ui.label("Nome da sua conta");
+                    ui.label(egui::RichText::new(name).strong()).on_hover_text("Atualize seu nome no perfil do site Nova Foods.");
+                } else {
+                    ui.label(tr("Your name in comments"));
+                    if let Some(name) = crate::widgets::text_field(ui, egui::Id::new("pref_user_name"), &prefs.user_name, 160.0, tr("You")) {
+                        app.run("pref.userName", json!({"name": name}));
+                    }
                 }
             });
             ui.add_space(8.0);

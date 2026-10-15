@@ -109,7 +109,7 @@ pub fn show(app: &mut FigApp, ui: &mut Ui) {
                 a11y::popup(&mut app.ui.nav, cresp.id, flyout_id(g.key));
             }
             if cresp.hovered() {
-                ui.painter().rect_filled(cr, CornerRadius::same(4), t.hover);
+                ui.painter().rect_filled(cr, CornerRadius::same(8), t.hover);
             }
             icons::paint(ui.painter(), Rect::from_center_size(cr.center(), vec2(10.0, 10.0)), Icon::Chevron, t.icon_secondary);
             if cresp.clicked() {
@@ -130,7 +130,7 @@ pub fn show(app: &mut FigApp, ui: &mut Ui) {
         let r = Rect::from_center_size(pos2(x + cell / 2.0, cy), vec2(cell, cell));
         let resp = ui.interact(r, ui.id().with(id), Sense::click()).tip(tip);
         if resp.hovered() {
-            ui.painter().rect_filled(r, CornerRadius::same(5), t.hover);
+            ui.painter().rect_filled(r, CornerRadius::same(10), t.hover);
         }
         icons::paint(ui.painter(), r.shrink(7.0), icon, t.icon);
         if resp.clicked() {
@@ -160,10 +160,10 @@ pub fn show(app: &mut FigApp, ui: &mut Ui) {
         let resp = ui.interact(r, ui.id().with(("mode", i)), Sense::click()).on_hover_text(*tip);
         a11y::toggle(&resp, tip, i == active);
         if i == active {
-            ui.painter().rect_filled(r, CornerRadius::same(6), t.panel);
-            ui.painter().rect_stroke(r, CornerRadius::same(6), Stroke::new(1.0, t.border), StrokeKind::Inside);
+            ui.painter().rect_filled(r, CornerRadius::same(10), t.panel);
+            ui.painter().rect_stroke(r, CornerRadius::same(10), Stroke::new(1.0, t.border), StrokeKind::Inside);
         } else if resp.hovered() {
-            ui.painter().rect_filled(r, CornerRadius::same(6), t.hover);
+            ui.painter().rect_filled(r, CornerRadius::same(10), t.hover);
         }
         icons::paint(ui.painter(), r.shrink(9.0), *icon, if i == active { t.accent_text } else { t.icon_secondary });
         if resp.clicked() {
@@ -353,7 +353,7 @@ fn tool_cell(ui: &mut Ui, t: &Tokens, r: Rect, id: impl egui::AsIdSalt, icon: Ic
     } else {
         Color32::TRANSPARENT
     };
-    ui.painter().rect_filled(r, CornerRadius::same(5), bg);
+    ui.painter().rect_filled(r, CornerRadius::same(10), bg);
     icons::paint(ui.painter(), r.shrink(7.0), icon, if active { Color32::WHITE } else { t.icon });
     resp
 }
@@ -370,7 +370,7 @@ fn done_button(ui: &mut Ui, t: &Tokens, x: f32, cy: f32, tip: &str) -> bool {
     divider(ui, t, x, cy);
     let done = Rect::from_min_size(pos2(x + 12.0, cy - 14.0), vec2(DONE_W, 28.0));
     let resp = ui.interact(done, ui.id().with("tool_done"), Sense::click()).tip(tip);
-    ui.painter().rect_filled(done, CornerRadius::same(6), if resp.hovered() { t.accent_hover } else { ACCENT });
+    ui.painter().rect_filled(done, CornerRadius::same(10), if resp.hovered() { t.accent_hover } else { ACCENT });
     ui.painter().text(done.center(), Align2::CENTER_CENTER, tr("Done"), crate::theme::semibold(11.5), Color32::WHITE);
     resp.clicked()
 }
@@ -392,7 +392,7 @@ fn flyout(app: &mut FigApp, ui: &mut Ui, g: &Group, bottom_left: egui::Pos2) {
             // The keyboard's item is highlighted like the hovered one.
             a11y::own_focus(&resp);
             if resp.hovered() || resp.has_focus() {
-                ui.painter().rect_filled(r, CornerRadius::same(5), t.menu_hover);
+                ui.painter().rect_filled(r, CornerRadius::same(10), t.menu_hover);
             }
             if *tid == app.session.tool.tool {
                 icons::paint(ui.painter(), Rect::from_center_size(pos2(r.min.x + 10.0, r.center().y), vec2(12.0, 12.0)), Icon::Check, t.menu_text);

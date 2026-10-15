@@ -189,7 +189,7 @@ fn visuals(t: Tokens) -> Visuals {
     v.selection.stroke = Stroke::new(1.0, t.accent);
     v.hyperlink_color = t.accent_text;
     for w in [&mut v.widgets.inactive, &mut v.widgets.hovered, &mut v.widgets.active, &mut v.widgets.open, &mut v.widgets.noninteractive] {
-        w.corner_radius = egui::CornerRadius::same(5);
+        w.corner_radius = egui::CornerRadius::same(8);
         w.fg_stroke = Stroke::new(1.0, t.text);
     }
     v.widgets.noninteractive.bg_stroke = Stroke::new(1.0, t.border);
