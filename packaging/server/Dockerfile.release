@@ -1,7 +1,7 @@
 # Servidor de colaboração Nova Foods (collab.agcunae.com) a partir do binário publicado no release
 # do Nova Fig: nada é compilado na VPS. O SHA-256 é conferido contra o SHA256SUMS.txt do release.
 FROM debian:bookworm-slim
-ARG NOVAFIG_VERSION=0.6.1
+ARG NOVAFIG_VERSION=0.8.0
 ARG BASE=https://github.com/EuLucaDev/novafig/releases/download
 RUN set -eux; \
     apt-get update; apt-get install -y --no-install-recommends ca-certificates curl; rm -rf /var/lib/apt/lists/*; \
