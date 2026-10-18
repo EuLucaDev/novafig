@@ -20,6 +20,7 @@ novafig-render = { workspace = true }
 novafig-format = { workspace = true }
 novafig-svg = { workspace = true }
 novafig-pdf = { workspace = true }
+craft-docpath = { workspace = true }
 novafig-plugin = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

@@ -2,7 +2,7 @@
 resolver = "3"
 members = ["crates/*", "apps/*", "xtask"]
 # The plugin SDK and examples build for wasm32 in a workspace of their own (`cargo xtask plugins`).
-exclude = ["plugins"]
+exclude = ["vendor", "plugins"]
 # default-members = ["crates/*", "apps/novafig", "apps/novafig-cli", "xtask"]
 
 [workspace.package]
@@ -31,6 +31,9 @@ novafig-ui-egui = { path = "crates/ui-egui" }
 novafig-mcp = { path = "crates/mcp" }
 novafig-collab-net = { path = "crates/collab-net" }
 novafig-plugin = { path = "crates/plugin" }
+
+# Which paths stored in a document may be followed (novafoods-libs).
+craft-docpath = { path = "vendor/novafoods-libs-82a24b006e/crates/docpath" }
 
 # foundation
 kurbo = { version = "0.13", features = ["serde"] }

@@ -13,6 +13,8 @@ novafig-geom = { workspace = true }
 novafig-doc = { workspace = true }
 skrifa = { workspace = true }
 harfrust = { workspace = true }
+# Colour emoji: sbix/CBDT strikes are PNG images the text layer decodes for the renderer.
+png = { workspace = true }
 unicode-bidi = { workspace = true }
 unicode-segmentation = { workspace = true }
 log = { workspace = true }

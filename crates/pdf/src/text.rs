@@ -9,14 +9,14 @@ use krilla::geom::Point;
 use krilla::paint::{Fill, FillRule};
 use krilla::surface::Surface;
 use krilla::text::{Font, GlyphId, KrillaGlyph};
-use novafig_doc::{Node, NodeKind, StrokeAlign, StrokeProps};
+use novafig_doc::{Node, NodeKind};
 use novafig_geom::{Affine, BezPath};
 use novafig_text::fontdb::FontBytes;
 use novafig_text::{Face, Glyph, TextLayout};
 
 use novafig_color::{GradientKind, Paint, PaintKind};
 
-use crate::draw::{Exporter, above, affine_ok, blend, to_xf, vector_paint};
+use crate::draw::{Exporter, above, affine_ok, blend, stroke_rule, to_xf, vector_paint};
 use crate::raster::Raster;
 
 /// Glyphs of one face and size on one line, written as one text run.
@@ -41,7 +41,7 @@ pub(crate) fn draw_text(ex: &mut Exporter, s: &mut Surface, n: &Node, xf: Affine
     if !affine_ok(gxf) {
         return;
     }
-    if ex.masking == 0 {
+    if ex.masking == 0 && ex.tiling == 0 {
         record_links(ex, &layout, gxf);
     }
     let (w, h) = (n.width, n.height);
@@ -84,11 +84,11 @@ pub(crate) fn draw_text(ex: &mut Exporter, s: &mut Surface, n: &Node, xf: Affine
         }
     }
     ex.place_inner(s, inner);
-    let props = StrokeProps { align: StrokeAlign::Center, ..n.stroke.clone() };
+    // Glyph outlines are closed: inside and outside strokes clip to them, as on the canvas (#615).
     for outlines in &stroked {
-        let area = novafig_pathops::stroke_center(outlines, props.weight, &props);
+        let area = novafig_render::draw::stroke_area(n, outlines, true);
         for p in &n.strokes {
-            ex.fill(s, &area, FillRule::NonZero, p, w, h, gxf);
+            ex.fill(s, &area, stroke_rule(n, true), p, w, h, gxf);
         }
     }
 }
